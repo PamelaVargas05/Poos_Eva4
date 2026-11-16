@@ -1,0 +1,3 @@
+# Dependencias del proyecto.
+# Por ahora solo se usa la biblioteca estándar de Python (incluye sqlite3).
+# Agregar aquí paquetes externos cuando el equipo los apruebe (ver docs/decisions.md).
