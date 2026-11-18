@@ -1,19 +1,19 @@
 # Requerimientos
 
-> Este documento se completará con el caso de negocio confirmado. Los datos sin confirmar están marcados como **[PENDIENTE]**.
+> Alcance inicial de referencia para EcoTech Solutions, basado en el material compartido del taller Clase 8. El caso detallado y el UML original deben confirmarse; atributos y reglas no indicados expresamente siguen pendientes.
 
 ## 1. Requerimientos funcionales
 | ID | Descripción | Prioridad | Estado |
 |----|-------------|-----------|--------|
-| RF-01 | Registrar (crear) las entidades principales del sistema. **[PENDIENTE: definir entidades según UML]** | Alta | Por confirmar |
-| RF-02 | Consultar (leer) las entidades registradas. | Alta | Por confirmar |
-| RF-03 | Actualizar los datos de las entidades registradas. | Alta | Por confirmar |
-| RF-04 | Eliminar entidades registradas. | Media | Por confirmar |
-| RF-05 | Guardar la información en una base de datos (SQLite o MySQL). | Alta | Por confirmar |
-| RF-06 | Validar los datos ingresados y mostrar mensajes de error en español. | Alta | Por confirmar |
+| RF-01 | Representar departamentos, empleados, proyectos y registros de trabajo en el prototipo. | Alta | Propuesta del taller; validar con UML |
+| RF-02 | Permitir que cada empleado se asocie a un departamento. | Alta | Relación de referencia |
+| RF-03 | Relacionar cada registro de trabajo con un empleado y un proyecto. | Alta | Relación de referencia |
+| RF-04 | Insertar inicialmente Department, Project y WorkRecord; insertar Employee como apoyo. | Alta | Implementación inicial |
+| RF-05 | Persistir los datos del prototipo mediante SQLite y consultas parametrizadas. | Alta | Implementación inicial |
+| RF-06 | Validar datos básicos y mostrar resultados/errores al usuario en español. | Alta | Implementación inicial |
 | RF-07 | **[PENDIENTE]** Otros requerimientos del caso de negocio. | - | - |
 
-Los RF-01 a RF-06 se derivan de los objetivos académicos (CRUD, base de datos, excepciones) y deben ajustarse al caso real.
+Los requerimientos y relaciones anteriores se basan en el material compartido; el equipo debe confirmarlos antes de ampliar el alcance.
 
 ## 2. Requerimientos no funcionales
 | ID | Descripción | Prioridad |
@@ -31,12 +31,15 @@ Formato: *Como [rol], quiero [acción] para [beneficio].*
 
 | ID | Historia | Criterios de aceptación | Prioridad |
 |----|----------|-------------------------|-----------|
-| HU-01 | Como **[PENDIENTE: rol]**, quiero registrar **[PENDIENTE: entidad]** para **[PENDIENTE: beneficio]**. | Los datos válidos se guardan; los inválidos muestran un mensaje claro en español. | Alta |
-| HU-02 | Como **[PENDIENTE: rol]**, quiero consultar **[PENDIENTE: entidad]**. | Se muestran los datos guardados. | Alta |
-| HU-03 | Como **[PENDIENTE: rol]**, quiero modificar **[PENDIENTE: entidad]**. | Los cambios quedan guardados y consultables. | Media |
-| HU-04 | Como **[PENDIENTE: rol]**, quiero eliminar **[PENDIENTE: entidad]**. | El registro deja de aparecer; se pide confirmación. | Media |
+| HU-01 | Como integrante del equipo, quiero insertar un departamento y un proyecto para preparar los datos del prototipo. | Los DAO reciben identificadores generados por SQLite. | Alta |
+| HU-02 | Como integrante del equipo, quiero registrar un empleado asociado a un departamento. | La FK del departamento se valida en SQLite. | Alta |
+| HU-03 | Como integrante del equipo, quiero registrar horas de un empleado en un proyecto. | El registro conserva las dos FK, fecha y horas positivas. | Alta |
 
 ## 4. Prioridades
-- **Alta:** análisis, UML validado, dominio, persistencia, CRUD base, seguridad básica.
+- **Alta:** análisis, UML validado, dominio, persistencia inicial, inserciones y seguridad básica.
 - **Media:** pruebas, mejoras de validación, documentación final.
 - **Baja:** **[PENDIENTE]**
+
+## 5. Datos de referencia pendientes
+
+Confirmar con el caso de negocio y el UML original los atributos de `Employee`, `Department`, `Project` y `WorkRecord`; tipos, restricciones, campos personales, unidades de horas y cualquier requerimiento adicional al flujo de inserción inicial.

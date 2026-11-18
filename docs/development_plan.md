@@ -45,3 +45,14 @@ Reglas sugeridas:
 | T-20 | Pruebas | Pruebas de CRUD | V | Probar con base temporal. | Pruebas pasan. |
 | T-21 | Documentación | Actualizar README y docs | P y V | Reflejar el estado real. | Docs coherentes con el código. |
 | T-22 | Documentación | Preparar entrega final | P y V | Revisión general y demo. | Todo en `main`, tablero en "Hecho". |
+
+## 4. Flujo de ramas propuesto para Clase 8
+
+El material del taller propone `feature/pamela-department-project`, `feature/valentina-work-record` e `integration/class8`. Son nombres propuestos y no se afirma que existan.
+
+1. Confirmar con el equipo el estado del repositorio y los permisos.
+2. Crear ramas desde `main` actualizado, sin trabajar directamente sobre `main`.
+3. Abrir Pull Requests hacia la rama de integración acordada y solicitar revisión mutua.
+4. Ejecutar las pruebas antes de integrar a `main` mediante Pull Request.
+
+En esta sesión se continuó en `setup/project-structure` por indicación de la usuaria; no se crearon ramas, no se modificó `main`, y no se hizo commit, push ni merge.

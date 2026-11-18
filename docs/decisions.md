@@ -20,3 +20,22 @@
 | P-04 | Herramienta de pruebas | `unittest` o `pytest` | `unittest` no requiere instalar nada. |
 | P-05 | Responsables de cada tarjeta | Acordar P y V | Se decide en la planificación. |
 | P-06 | Versión mínima de Python | **[PENDIENTE]** (README sugiere 3.10+) | Confirmar con el equipo. |
+
+## 3. Supuestos del prototipo Clase 8
+
+El material compartido propone `Department`, `Project` y `WorkRecord`, con `Employee` como entidad de apoyo, y SQLite para el ejercicio inicial. La propuesta de UML, esquema y asignación aún debe compararse con el modelo original y acordarse con el equipo.
+
+| Supuesto | Revisión pendiente |
+|---|---|
+| Se usan claves enteras, `name`, y para `WorkRecord`, `work_date` y `hours`. | Confirmar nombres, tipos y atributos completos con el UML original. |
+| `Employee` requiere `department_id`; `WorkRecord` requiere `employee_id` y `project_id`. | Confirmar obligatoriedad y multiplicidades. |
+| `hours` debe ser positivo y `work_date` se almacena como texto ISO 8601. | Confirmar reglas y formato de datos. |
+| Se usa SQLite mediante `sqlite3` para el prototipo. | Reconfirmar con el equipo si el alcance cambia. |
+
+No se declara que el UML de referencia haya sido validado por el equipo o por el docente.
+
+## 4. Decisiones de colaboración pendientes
+
+- Confirmar la distribución definitiva de responsabilidades.
+- Crear las ramas propuestas solo cuando el equipo autorice y confirme acceso.
+- Confirmar acceso de Valentina al repositorio; no se presume que ya tenga permisos.

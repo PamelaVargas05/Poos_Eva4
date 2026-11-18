@@ -1,0 +1,1 @@
+"""Acceso SQLite del proyecto."""
