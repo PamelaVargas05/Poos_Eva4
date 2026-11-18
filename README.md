@@ -1,4 +1,4 @@
-# EcoTech Solutions — Poos_Eva4
+# Viaje de Aventura —
 
 ## Descripción
 Prototipo académico en Python para practicar Programación Orientada a Objetos Seguros mediante un sistema de gestión de departamentos, proyectos y registros de tiempo de EcoTech Solutions. El modelo implementado es una referencia de trabajo basada en el material del taller; no reemplaza ni afirma ser el UML original validado.
