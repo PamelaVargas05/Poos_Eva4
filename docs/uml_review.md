@@ -1,8 +1,10 @@
-# Revisión del modelo UML de referencia
+# Revisión histórica del modelo EcoTech
+
+> Esta revisión corresponde al prototipo EcoTech/SQLite y no valida el UML de Viajes Aventura. Para el modelo turístico, consultar `docs/uml.md`; la revisión académica sigue pendiente.
 
 ## Alcance revisado
 
-Se revisó el texto de instrucciones compartido para el taller y se registró una propuesta de cuatro entidades: `Department`, `Employee`, `Project` y `WorkRecord`. El repositorio no contiene el UML original de la evaluación anterior. Por eso, `docs/uml.md` y `docs/UML_base_v1.md` describen una referencia de trabajo, no una copia validada.
+Se revisó el texto de instrucciones compartido para el taller y se registró una propuesta de cuatro entidades: `Department`, `Employee`, `Project` y `WorkRecord`. El repositorio no contiene el UML original de la evaluación anterior. `docs/UML_base_v1.md` conserva la referencia de trabajo EcoTech; `docs/uml.md` ahora corresponde a Viajes Aventura y no forma parte de esta revisión histórica.
 
 ## Observaciones
 

@@ -1,58 +1,42 @@
-# Plan de desarrollo
+# Plan de desarrollo — Viajes Aventura
 
-Integrantes: Pamela (P) y Valentina (V). Los responsables son **sugeridos**; deben acordarse entre ambas.
+## Product Backlog propuesto
 
-## 1. Tablero Kanban en Jira
-Columnas: **Por hacer** → **En progreso** → **En revisión** → **Hecho**.
+El backlog refleja el alcance académico solicitado. No se afirma que estas historias estén cargadas en Jira ni que hayan sido asignadas a una integrante.
 
-Reglas sugeridas:
-- Máximo 2 tarjetas en "En progreso" por persona.
-- Toda tarjeta pasa por "En revisión" con revisión de la otra integrante.
-- Una tarjeta está "Hecha" cuando cumple sus criterios de aceptación y está fusionada a `main` mediante Pull Request.
+| ID | Elemento | Prioridad | Estado en el código local |
+|---|---|---|---|
+| PB-01 | Configuración segura de conexión y esquema idempotente. | Alta | Esquema MariaDB inicializado y verificado. |
+| PB-02 | Entidades y reglas de destinos, paquetes, usuarios y reservas. | Alta | Implementadas y con pruebas unitarias. |
+| PB-03 | CRUD de destinos y paquetes, relación N:M con destinos. | Alta | CRUD real verificado con datos aislados. |
+| PB-04 | Registro, autenticación, roles y bootstrap del primer administrador. | Alta | Pruebas unitarias e integración MariaDB pasaron. |
+| PB-05 | Reservas, disponibilidad, historial y cambios de estado. | Alta | Ciclo real de reserva/cancelación/reapertura y concurrencia del último cupo verificados. |
+| PB-06 | Menú independiente de Viajes Aventura. | Alta | Menú inicial y roles ejercitados con entradas controladas; demostración autenticada en terminal real pendiente por la limitación de `getpass` con entrada redirigida. |
+| PB-07 | Suite de pruebas unitaria e integración controlada. | Alta | 45 pruebas aprobadas, incluidas cuatro integraciones MariaDB. |
+| PB-08 | UML, modelo, requisitos, seguridad y evaluación de IA. | Media | Documentación actualizada; revisión del equipo pendiente. |
+| PB-09 | Validación de entregables contra rúbrica y acuerdo del equipo. | Alta | Pendiente de confirmar. |
 
-## 2. Etapas
-1. Preparación y análisis
-2. Diseño (UML)
-3. Programación del dominio
-4. Base de datos
-5. CRUD
-6. Seguridad y excepciones
-7. Pruebas
-8. Documentación y cierre
+## Sprint Backlog sugerido
 
-## 3. Tarjetas propuestas
-| ID | Grupo | Tarjeta | Responsable sugerido | Descripción | Criterios de aceptación |
-|----|-------|---------|----------------------|-------------|-------------------------|
-| T-01 | Preparación | Configurar repositorio y estructura base | P | Revisar la rama `setup/project-structure` y fusionarla. | Estructura creada, `python src/main.py` funciona. |
-| T-02 | Preparación | Configurar tablero Jira | V | Crear tablero Kanban con 4 columnas e importar tarjetas. | Tablero visible para ambas. |
-| T-03 | Análisis | Confirmar caso de negocio | P y V | Acordar alcance con el enunciado. | `requirements.md` sin pendientes críticos. |
-| T-04 | Análisis | Redactar historias de usuario | V | Completar HU y criterios. | Cada HU con criterios verificables. |
-| T-05 | Diseño | Elaborar UML de clases | P | Clases, atributos, métodos, relaciones. | `uml.md` completo y validado. |
-| T-06 | Diseño | Validar UML con el docente | P y V | Corregir observaciones. | UML aprobado. |
-| T-07 | Programación | Implementar clases del dominio | P | Código fiel al UML, con encapsulamiento. | Clases coinciden con UML. |
-| T-08 | Programación | Implementar relaciones/herencia | V | Solo las del UML. | Relaciones funcionan según multiplicidades. |
-| T-09 | Base de datos | Decidir SQLite o MySQL | P y V | Registrar en `decisions.md`. | Decisión documentada. |
-| T-10 | Base de datos | Diseñar tablas (nombres en inglés) | V | Modelo relacional coherente con UML. | Script de creación revisado. |
-| T-11 | Base de datos | Implementar conexión y acceso a datos | P | Consultas parametrizadas. | Conexión funciona; sin credenciales en el repo. |
-| T-12 | CRUD | Crear (Create) | P | Insertar entidades con validación. | Registro guardado o error claro. |
-| T-13 | CRUD | Consultar (Read) | V | Listar y buscar. | Datos mostrados correctamente. |
-| T-14 | CRUD | Actualizar (Update) | P | Modificar con validación. | Cambios persistentes. |
-| T-15 | CRUD | Eliminar (Delete) | V | Eliminar con confirmación. | Registro eliminado. |
-| T-16 | Seguridad | Validación de entradas | V | Validar tipos, rangos y formatos. | Entradas inválidas rechazadas. |
-| T-17 | Seguridad | Manejo de excepciones | P | Capturar errores y mostrar mensajes en español. | Sin trazas internas al usuario. |
-| T-18 | Seguridad | Revisión de secretos y `.gitignore` | V | Verificar que no haya credenciales. | Sin archivos sensibles en Git. |
-| T-19 | Pruebas | Pruebas de dominio | P | Casos válidos e inválidos. | Pruebas pasan. |
-| T-20 | Pruebas | Pruebas de CRUD | V | Probar con base temporal. | Pruebas pasan. |
-| T-21 | Documentación | Actualizar README y docs | P y V | Reflejar el estado real. | Docs coherentes con el código. |
-| T-22 | Documentación | Preparar entrega final | P y V | Revisión general y demo. | Todo en `main`, tablero en "Hecho". |
+| Orden | Tarea | Criterio de aceptación | Estado local |
+|---|---|---|---|
+| 1 | Revisar modelo, reglas y esquema con el equipo/docente. | Atributos, cardinalidades y decisiones quedan acordados y documentados. | Pendiente de confirmación |
+| 2 | Ejecutar inicialización idempotente en el MariaDB autorizado. | Tablas de Viajes presentes y datos existentes preservados. | Ejecutado y verificado |
+| 3 | Ejecutar CRUD, reservas y concurrencia controlada contra MariaDB. | Integridad, disponibilidad y rollback verificados con datos exclusivos de prueba. | Ejecutado; suite integrada aprobada |
+| 4 | Hacer revisión cruzada de código y pruebas. | Observaciones registradas; sin atribuir aprobación antes de que ocurra. | Pendiente de realizar por el equipo |
+| 5 | Verificar documentación/evidencias con la rúbrica real. | Entregables y evidencia existentes; pendientes etiquetados. | Pendiente de confirmar |
 
-## 4. Flujo de ramas propuesto para Clase 8
+Estas tareas son una propuesta de trabajo, no registros de Jira ni evidencia de que integrantes hayan realizado reuniones o revisiones.
 
-El material del taller propone `feature/pamela-department-project`, `feature/valentina-work-record` e `integration/class8`. Son nombres propuestos y no se afirma que existan.
+## Fases y entregables
 
-1. Confirmar con el equipo el estado del repositorio y los permisos.
-2. Crear ramas desde `main` actualizado, sin trabajar directamente sobre `main`.
-3. Abrir Pull Requests hacia la rama de integración acordada y solicitar revisión mutua.
-4. Ejecutar las pruebas antes de integrar a `main` mediante Pull Request.
+| Fase | Entregable | Estado / condición |
+|---|---|---|
+| Análisis y modelo | Requerimientos, casos de uso, BPMN conceptual, UML y modelo relacional. | Documentados; validación del equipo/docente pendiente. |
+| Implementación | Entidades, esquema, DAO, autenticación y CLI. | Código local implementado. |
+| Pruebas | Unitarias/simuladas e integración MariaDB aislada. | Suite completa ejecutada: 45 pruebas aprobadas, incluidas cuatro integraciones. |
+| Cierre académico | Revisión de rúbrica, evidencia, backlog y responsabilidades. | Pendiente de confirmar por el equipo. |
 
-En esta sesión se continuó en `setup/project-structure` por indicación de la usuaria; no se crearon ramas, no se modificó `main`, y no se hizo commit, push ni merge.
+## Cronograma
+
+No se proporcionaron fechas oficiales de sprint ni entrega. Definir inicio, duración, revisiones y fecha final con el equipo; no se inventan hitos ni reuniones.

@@ -1,4 +1,6 @@
-# Recorrido del proyecto EcoTech Solutions
+# Recorrido histórico del prototipo EcoTech Solutions
+
+> Esta guía describe únicamente la implementación antigua de EcoTech/SQLite. No corresponde a Viajes Aventura. Para la aplicación turística actual, usar el README, `docs/architecture.md` y `docs/requirements.md`.
 
 Esta guía explica el prototipo en orden de ejecución. El UML usado es una referencia pendiente de validación; los ejemplos usan datos ficticios.
 
@@ -9,7 +11,7 @@ Esta guía explica el prototipo en orden de ejecución. El UML usado es una refe
 - `src/main.py` coordina la demostración.
 - `tests/` contiene las pruebas automatizadas.
 - `data/ecotech.db` aparece al ejecutar el programa; es una base local y está ignorada por Git.
-- `docs/` contiene el UML de referencia, su revisión, el modelo de datos, responsabilidades, planificación y decisiones.
+- `docs/UML_base_v1.md` y `docs/uml_review.md` conservan material histórico de EcoTech. Varios nombres de documentos se reutilizaron para Viajes Aventura; las referencias internas de esta guía no deben interpretarse como documentación turística.
 
 ## 2. Crear objetos del dominio
 
@@ -95,13 +97,13 @@ Esta distribución está pendiente de acuerdo definitivo; tampoco confirma que V
 
 ## 9. Documentos y solapamientos
 
-No se eliminó ni combinó ningún documento. Se observaron estos solapamientos intencionales:
+Los archivos históricos se conservaron, pero algunos nombres de documentos se reutilizaron para Viajes Aventura. Las referencias siguientes aclaran el alcance actual:
 
-- `docs/UML_base_v1.md` y `docs/uml.md` contienen diagramas y entidades similares. El primero conserva la primera referencia; el segundo es el documento de trabajo que el equipo debe actualizar. Ambos advierten que no son el UML original validado.
-- `docs/class8_implementation_plan.md` se parece a `docs/development_plan.md` en tareas y ramas. El primero sigue la actividad de Clase 8; el segundo conserva la planificación general del proyecto.
-- La tabla breve del README repite parte de `docs/team_responsibilities.md`. El README ofrece una vista rápida; el documento detalla evidencia y ramas.
-- `docs/jira_tasks.md` y `docs/development_plan.md` organizan tareas. El primero prepara tarjetas de Clase 8 para Jira; el segundo mantiene el plan global propuesto.
-- `docs/uml_review.md`, `docs/database_model.md` y `docs/decisions.md` comparten algunos supuestos, pero respectivamente registran observaciones UML, estructura de tablas y decisiones pendientes.
+- `docs/UML_base_v1.md` conserva la referencia UML de EcoTech. `docs/uml.md` ahora describe Viajes Aventura y no es una versión paralela del UML EcoTech.
+- `docs/class8_implementation_plan.md` es un plan histórico de EcoTech; `docs/development_plan.md` corresponde a Viajes Aventura y no es su plan general complementario.
+- `README.md` y `docs/team_responsibilities.md` describen actualmente Viajes Aventura. Las responsabilidades de esta guía son solo una propuesta histórica de EcoTech.
+- `docs/jira_tasks.md` y `docs/development_plan.md` son documentos actuales de Viajes Aventura; no son el backlog histórico de EcoTech.
+- `docs/uml_review.md` conserva observaciones históricas de EcoTech. `docs/database_model.md` y `docs/decisions.md` ahora documentan Viajes Aventura, no aquellos supuestos antiguos.
 
 Estas funciones pueden cambiar si el equipo decide consolidar documentación. No se combinaron porque cumplen niveles distintos y la solicitud pide conservarlos.
 
@@ -111,13 +113,12 @@ Los módulos Python usan `snake_case` (`work_record.py`, `work_record_dao.py`) y
 
 ## 11. Documentos centrales y complementarios
 
-Según los entregables explícitos del material compartido, los elementos centrales son:
+Según los entregables explícitos del material compartido para el prototipo EcoTech, los elementos centrales eran:
 
 - Repositorio y código ejecutable, con estructura, clases, DAO e inserciones.
-- `docs/uml.md`: UML actualizado (actualmente, propuesta pendiente de validación).
-- `docs/team_responsibilities.md`: asignación de responsabilidades.
-- `README.md`: descripción y estado del proyecto.
+- `docs/UML_base_v1.md`: propuesta UML histórica conservada, pendiente de validación.
+- Las responsabilidades y el README de aquella etapa son históricos; los archivos actuales `docs/team_responsibilities.md` y `README.md` describen Viajes Aventura.
 
-Como evidencias de las actividades detalladas también se usan `docs/database_model.md` (tablas y claves), `docs/UML_base_v1.md` y `docs/uml_review.md` (referencia y revisión), las pruebas y `docs/class8_implementation_plan.md` (avance y bloqueos). `docs/development_plan.md` registra el flujo de ramas; `docs/jira_tasks.md` prepara tarjetas, sin afirmar que Jira haya sido actualizado.
+Como referencias históricas de EcoTech quedan `docs/UML_base_v1.md`, `docs/uml_review.md`, este recorrido y `docs/class8_implementation_plan.md`. `docs/database_model.md`, `docs/development_plan.md`, `docs/jira_tasks.md` y `docs/decisions.md` ahora corresponden a Viajes Aventura; no deben usarse como evidencia histórica de EcoTech.
 
-Como material complementario para comprender y mantener el proyecto quedan `docs/architecture.md`, `docs/requirements.md`, `docs/decisions.md` y esta guía. Esta clasificación se basa en el texto compartido; conviene contrastarla con las instrucciones formales del docente.
+Como material complementario para comprender el prototipo EcoTech se conserva esta guía. La documentación turística actual está en `docs/architecture.md`, `docs/requirements.md` y los demás documentos Viajes Aventura. Esta clasificación se basa en el texto compartido; conviene contrastarla con las instrucciones formales del docente.

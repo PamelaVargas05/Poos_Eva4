@@ -1,106 +1,112 @@
-# UML de referencia — EcoTech Solutions
+# UML de clases — Viajes Aventura
 
-> **Estado:** propuesta de trabajo basada en el enunciado compartido para el taller. El UML original de la evaluación anterior no está disponible en el repositorio y este documento **no afirma que el modelo haya sido validado por el equipo ni por el docente**. Los atributos y tipos sugeridos deben revisarse antes de considerarlos definitivos.
+## Alcance
 
-## Diagrama de clases propuesto
+Este diagrama describe el modelo que implementa el código del proyecto Viajes Aventura. Es una propuesta técnica de esta entrega; aprobación por el equipo/docente queda pendiente de confirmar.
 
 ```mermaid
 classDiagram
-    class Department {
-        -int department_id
-        -str name
-        -list~Employee~ employees
-        +update_name(str) None
-        +assign_department_id(int) None
-        +add_employee(Employee) None
-        +get_employees() tuple~Employee~
+    class User {
+        -int? user_id
+        -str full_name
+        -str email
+        -str role
+        +assign_id(int) None
     }
-    class Employee {
-        -int employee_id
+    class Destination {
+        -int? destination_id
         -str name
-        -int department_id
-        -list~WorkRecord~ work_records
-        +update_name(str) None
-        +assign_employee_id(int) None
-        +add_work_record(WorkRecord) None
-        +get_work_records() tuple~WorkRecord~
+        -str country
+        -str description
+        +update(str, str, str) None
+        +assign_id(int) None
     }
-    class Project {
-        -int project_id
+    class TravelPackage {
+        -int? package_id
         -str name
-        -list~WorkRecord~ work_records
-        +update_name(str) None
-        +assign_project_id(int) None
-        +add_work_record(WorkRecord) None
-        +get_work_records() tuple~WorkRecord~
+        -str description
+        -date start_date
+        -date end_date
+        -Decimal unit_price
+        -int available_slots
+        -tuple destination_ids
+        +duration_days int
+        +calculate_total(int) Decimal
+        +assign_id(int) None
     }
-    class WorkRecord {
-        -int work_record_id
-        -int employee_id
-        -int project_id
-        -date work_date
-        -float hours
-        +update_work_date(date) None
-        +update_hours(float) None
-        +assign_work_record_id(int) None
+    class Reservation {
+        -int? reservation_id
+        -int user_id
+        -int package_id
+        -int travelers
+        -Decimal unit_price
+        -Decimal total_price
+        -str status
+        -datetime booked_at
+        +cancel() None
+        +assign_id(int) None
+    }
+    class DestinationDAO {
+        +create(Destination) int
+        +list_all() list
+        +get_by_id(int) Destination
+        +update(int, Destination) None
+        +delete(int) None
+    }
+    class TravelPackageDAO {
+        +create(TravelPackage) int
+        +list_all() list
+        +get_by_id(int) TravelPackage
+        +get_destinations(int) list
+        +update(int, TravelPackage) None
+        +delete(int) None
+    }
+    class UserDAO {
+        +create(User, str) int
+        +get_by_id(int) User
+        +find_by_email(str) User?
+        +list_all() list
+    }
+    class ReservationDAO {
+        +create(int, int, int) Reservation
+        +get_by_id(int) Reservation
+        +list_by_user(int) list
+        +list_all() list
+        +update_status(int, str) None
+        +cancel(int) None
+    }
+    class AuthenticationService {
+        +register(str, str, str) User
+        +login(str, str) User
+        +logout() None
+        +require_role(str) User
+    }
+    class PasswordHash {
+        +hash_password(str) str
+        +verify_password(str, str) bool
     }
 
-    Department "1" --> "0..*" Employee : asigna
-    Employee "1" --> "0..*" WorkRecord : registra
-    Project "1" --> "0..*" WorkRecord : recibe
+    User "1" --> "0..*" Reservation : realiza
+    TravelPackage "1" --> "0..*" Reservation : recibe
+    TravelPackage "1..*" --> "0..*" Destination : package_destinations
+    DestinationDAO ..> Destination : persiste
+    TravelPackageDAO ..> TravelPackage : persiste
+    UserDAO ..> User : persiste
+    ReservationDAO ..> Reservation : persiste
+    AuthenticationService ..> UserDAO : autentica
+    AuthenticationService ..> PasswordHash : verifica
 ```
 
-Los atributos se almacenan de forma privada y se consultan mediante propiedades de solo lectura. Los métodos `update_*` validan modificaciones, y los métodos `add_*`/`remove_*` controlan las asociaciones. Las consultas de colecciones devuelven tuplas, no las listas internas. Los identificadores generados por SQLite pueden ser `None` antes de insertar y se asignan una sola vez después de persistir. `WorkRecord` enlaza un empleado con un proyecto.
+## Responsabilidades y reglas relevantes
 
-## Responsabilidades propuestas
+- Las entidades validan sus valores y mantienen campos privados con propiedades de lectura.
+- `TravelPackage.calculate_total()` es la operación central de precio total: precio unitario multiplicado por viajeros, con `Decimal`.
+- La duración se calcula inclusivamente a partir de las fechas.
+- El paquete requiere al menos un destino; el DAO persiste el vínculo N:M de forma transaccional.
+- `User` no guarda ni expone la contraseña en claro; el hash se maneja por el servicio/DAO de autenticación.
+- `Reservation` conserva el precio unitario de la compra y controla la transición local de cancelación.
+- Los DAO dependen de la conexión MySQL existente y no pertenecen al dominio.
 
-| Clase | Responsabilidad de referencia | Estado |
-|---|---|---|
-| `Department` | Representar un departamento. | Pendiente de validar con el equipo y el UML original. |
-| `Employee` | Entidad de apoyo asociada a un departamento y a registros de trabajo. | Pendiente de validar. |
-| `Project` | Representar un proyecto. | Pendiente de validar. |
-| `WorkRecord` | Registrar fecha y horas de un empleado en un proyecto. | Pendiente de validar. |
+## Límites / confirmación pendiente
 
-## Atributos y tipos propuestos
-
-| Clase | Atributo | Tipo Python | Observación |
-|---|---|---|---|
-| `Department` | `department_id` | `int \| None` | Clave generada al persistir. |
-| `Department` | `name` | `str` | Nombre de referencia. |
-| `Employee` | `employee_id` | `int \| None` | Clave generada al persistir. |
-| `Employee` | `name` | `str` | Nombre de referencia; atributos personales adicionales no definidos. |
-| `Employee` | `department_id` | `int` | Referencia obligatoria a `Department`. |
-| `Project` | `project_id` | `int \| None` | Clave generada al persistir. |
-| `Project` | `name` | `str` | Nombre de referencia. |
-| `WorkRecord` | `work_record_id` | `int \| None` | Clave generada al persistir. |
-| `WorkRecord` | `employee_id` | `int` | Referencia obligatoria a `Employee`. |
-| `WorkRecord` | `project_id` | `int` | Referencia obligatoria a `Project`. |
-| `WorkRecord` | `work_date` | `date` | Fecha del registro. |
-| `WorkRecord` | `hours` | `float` | Cantidad positiva de horas. |
-
-Los atributos y tipos son supuestos mínimos para habilitar las inserciones solicitadas; deben compararse con el modelo del curso y las reglas de negocio reales.
-
-## Métodos públicos de referencia
-
-| Clase | Métodos | Responsabilidad |
-|---|---|---|
-| `Department` | `update_name`, `assign_department_id`, `add_employee`, `get_employees` | Validar cambios al nombre e ID; controlar empleados asociados y devolver una tupla. |
-| `Employee` | `update_name`, `assign_employee_id`, `add_work_record`, `get_work_records` | Validar cambios al nombre e ID; controlar registros asociados y devolver una tupla. |
-| `Project` | `update_name`, `assign_project_id`, `add_work_record`, `get_work_records` | Validar cambios al nombre e ID; controlar registros recibidos y devolver una tupla. |
-| `WorkRecord` | `update_work_date`, `update_hours`, `assign_work_record_id` | Validar cambios a fecha y horas; asignar una sola vez el ID generado. |
-
-## Relaciones y multiplicidades de referencia
-
-| Origen | Relación | Destino | Multiplicidad |
-|---|---|---|---|
-| `Department` | Asociación | `Employee` | Un departamento (`1`) puede tener cero o muchos empleados (`0..*`); cada empleado se asocia a un departamento. |
-| `Employee` | Asociación | `WorkRecord` | Un empleado (`1`) puede tener cero o muchos registros (`0..*`); cada registro corresponde a un empleado. |
-| `Project` | Asociación | `WorkRecord` | Un proyecto (`1`) puede tener cero o muchos registros (`0..*`); cada registro corresponde a un proyecto. |
-
-## Supuestos y validaciones pendientes
-
-- Confirmar que las cuatro entidades y las tres relaciones correspondan al UML original.
-- Confirmar atributos, tipos, reglas de negocio, obligatoriedad y visibilidad.
-- Confirmar que un empleado pertenezca a un único departamento.
-- Confirmar si las horas deben ser numéricas positivas y cómo se expresan.
-- No se afirma que este documento sea una copia del UML original ni que haya sido aprobado.
+El modelo relacional se detalla en `database_model.md`. La asociación UML de paquetes y destinos se realiza mediante IDs y la tabla intermedia, no mediante listas de objetos en memoria. El equipo debe confirmar nombres/campos y que las reglas académicas coinciden con la rúbrica; no se afirma aprobación docente.

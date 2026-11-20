@@ -1,4 +1,6 @@
-# UML_base_v1 — Referencia de trabajo
+# UML_base_v1 — Referencia histórica de EcoTech
+
+> Archivo conservado del prototipo EcoTech/SQLite; no es el UML de Viajes Aventura. El modelo turístico está en `docs/uml.md`.
 
 > Esta versión conserva la primera propuesta derivada del texto compartido para el taller. **No es el UML original de la evaluación anterior ni consta como validada por el equipo o el docente.** Los atributos, tipos y relaciones son supuestos explícitos para el prototipo.
 
@@ -55,4 +57,4 @@ classDiagram
 
 ## Revisión necesaria
 
-El equipo debe comparar esta referencia con el UML de la evaluación anterior y confirmar entidades, responsabilidades, atributos, métodos, tipos, restricciones y multiplicidades. Hasta entonces, `docs/uml.md` debe conservar el estado de propuesta y no atribuir validación al docente.
+El equipo debe comparar esta referencia con el UML de la evaluación anterior y confirmar entidades, responsabilidades, atributos, métodos, tipos, restricciones y multiplicidades. Esta es la referencia histórica de EcoTech. `docs/uml.md` ahora describe Viajes Aventura y no debe utilizarse para validar este modelo.
