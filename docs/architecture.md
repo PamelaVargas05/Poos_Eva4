@@ -1,26 +1,32 @@
-# Arquitectura
+# Arquitectura — Viajes Aventura
 
-## 1. Estado actual (requisitos de Clase 1 y Clase 2)
+## Capas actuales
 
-- `src/domain/`: entidades con atributos privados, propiedades de lectura, validación de cambios y asociaciones controladas.
-- `src/persistence/`: conexión SQLite, creación de tablas y DAO de inserción.
-- `src/main.py`: punto de entrada de la demostración y creación de relaciones entre los objetos.
-- `tests/`: pruebas del dominio, asociaciones permitidas/rechazadas, esquema, inserciones y claves foráneas.
+- `src/viajes/domain/`: `User`, `Destination`, `TravelPackage`, `Reservation` y validaciones. No ejecuta SQL.
+- `src/viajes/persistence/`: esquema idempotente y DAO especializados para destinos, paquetes, usuarios y reservas; consultas parametrizadas.
+- `src/viajes/auth.py`: hash/verificación de contraseñas, registro, inicio/cierre de sesión y control de rol.
+- `src/viajes/cli.py`: interfaz de consola con acciones de cliente y administrador.
+- `src/viajes_main.py`: punto de entrada separado para Viajes Aventura.
+- `src/persistence/viajes_connection.py`: conexión configurada para MariaDB/MySQL y credenciales del entorno.
+- `src/main.py`, `src/domain/` y DAO sin prefijo turístico: prototipo EcoTech/SQLite preexistente, no utilizado por Viajes.
 
-El modelo es una referencia del material del taller, no el UML original validado.
+## Flujos de persistencia
 
-## 2. Responsabilidad del dominio
-La capa `domain` contiene las clases que representan el negocio, con sus atributos encapsulados, sus reglas y sus relaciones tal como estén en el UML validado. Debe ser independiente de la base de datos y de la interfaz con el usuario.
+- Un DAO abre/cierra su conexión y cursor; las consultas usan parámetros `%s`.
+- Crear/actualizar paquete y tabla intermedia se realizan en una transacción.
+- Reservar bloquea la fila del paquete con `FOR UPDATE`, valida cupos/fechas y confirma el descuento junto con la reserva; cualquier excepción produce `rollback`.
+- Los cambios de estado de reserva ajustan los cupos en la misma transacción.
+- El DDL usa InnoDB y `CREATE TABLE IF NOT EXISTS`; en MariaDB el DDL puede confirmar implícitamente y no se presenta como migración transaccional.
+- La inicialización explícita del esquema requiere `CREATE`; el menú normal solo verifica las cinco tablas mediante `information_schema` y no necesita privilegios DDL permanentes.
 
-## 3. Alcance y ampliación
+## Decisiones de diseño
 
-Se mantiene la implementación sencilla. No se agregan `Service`, `Controller`, DAO genérico ni patrones adicionales.
+No se introducen ORM, DAO genérico ni dependencias de hashing. Las entidades turísticas están bajo un paquete propio para evitar colisiones con el modelo EcoTech. Las credenciales se obtienen mediante `VIAJES_DB_USER` y `VIAJES_DB_PASSWORD`; no se muestran ni se incorporan a esta documentación.
 
-| Etapa | Componente posible | Cuándo |
-|-------|--------------------|--------|
-| Ampliar el dominio | Entidades y reglas confirmadas por UML | Después de validar el modelo. |
-| Ampliar persistencia | Operaciones DAO adicionales si se requieren | Cuando el alcance funcional las solicite. |
-| Interfaz | Menú de consola u otra **[PENDIENTE]** | Cuando se defina. |
-| Configuración | Variables de entorno si se incorporan credenciales | Solo si un servicio futuro lo necesita. |
+La autenticación es una sesión en memoria del proceso de consola, no un sistema web con cookies/tokens. Roles soportados: `customer` y `admin`; registro público solo crea clientes. La creación del primer administrador está protegida por un bloqueo de base de datos y se invoca mediante opción explícita de bootstrap.
 
-Principio guía: separación de responsabilidades; el dominio no ejecuta SQL y la persistencia centraliza las consultas parametrizadas.
+## Estado de validación
+
+La ejecución completa aprobó 45 pruebas, incluidas cuatro pruebas de integración MariaDB. Se verificaron conexión, inicialización del esquema, CRUD, autenticación, roles, reservas, disponibilidad, cancelación/reapertura y concurrencia del último cupo con dos conexiones independientes. Cada fila de prueba se eliminó por su identificador exacto; la comprobación posterior no encontró registros temporales residuales.
+
+La aplicación se inició para revisar el menú inicial y los flujos de cliente/administrador se probaron con entradas controladas. No se completó una demostración autenticada en terminal real: `getpass` impidió automatizar el inicio de sesión mediante entrada redirigida.

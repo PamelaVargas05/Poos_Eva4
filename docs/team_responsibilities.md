@@ -1,14 +1,21 @@
-# Distribución de responsabilidades — propuesta Clase 8
+# Responsabilidades del equipo
 
-La distribución refleja la asignación indicada en el material del taller. Debe ser acordada por Pamela y Valentina. No se afirma que ambas tengan ya acceso o permisos configurados en GitHub.
+## Integrantes
 
-| Integrante | Componente | Clase | DAO | Tabla | Rama propuesta (no creada) | Responsabilidades | Evidencia esperada |
-|---|---|---|---|---|---|---|---|
-| Pamela | `Department` | `Department` | `DepartmentDAO` | `departments` | `feature/pamela-department-project` | Liderar el componente, apoyar su relación con `Employee` e integrar estructura y revisión del repositorio. | Prueba de validación e inserción; revisión del equipo. |
-| Pamela | `Project` | `Project` | `ProjectDAO` | `projects` | `feature/pamela-department-project` | Liderar el componente y revisar su relación con `WorkRecord`. | Prueba de inserción y revisión del equipo. |
-| Valentina | `WorkRecord` | `WorkRecord` | `WorkRecordDAO` | `work_records` | `feature/valentina-work-record` | Liderar el componente, revisar sus relaciones con `Employee` y `Project`, y verificar sus inserciones. | Prueba de inserción con ambas claves foráneas. |
-| Compartido | Entidad de apoyo | `Employee` | `EmployeeDAO` | `employees` | `integration/class8` | Coordinar la entidad necesaria para las relaciones y la integración del flujo. | Prueba de inserción asociada a un departamento. |
-| Ambas | Integración y revisión | — | — | — | `integration/class8` | Revisar el UML de referencia, integrar cambios, ejecutar pruebas y realizar revisión por Pull Request cuando las ramas estén disponibles. | Revisión acordada y pruebas ejecutadas. |
-| Valentina | Seguimiento | — | — | — | Según acuerdo del equipo | Preparar y organizar las tarjetas para el tablero Jira/Kanban. | Tareas listas para registrar; no se afirma que ya se hayan creado en Jira. |
+El proyecto se desarrolla en pareja: Pamela Vargas y Valentina Arias. La distribución por tarea siguiente es una propuesta para revisión; no registra una asignación acordada ni afirma tareas realizadas.
 
-Las ramas son nombres propuestos en el material compartido. En esta sesión no se crearon por decisión de continuar en la rama actual.
+| Área | Pamela Vargas | Valentina Arias | Acuerdo/estado |
+|---|---|---|---|
+| Modelo y reglas | Revisar entidades, validaciones y modelo relacional. | Revisar cardinalidades y criterios de aceptación. | Compartido; confirmar distribución. |
+| Dominio y persistencia | Revisión de entidades y DAO. | Revisión de relaciones, reservas y casos borde. | Propuesta; confirmar responsables por módulo. |
+| Seguridad y pruebas | Revisar secretos, hash y transacciones. | Revisar escenarios de acceso y pruebas. | Revisión cruzada propuesta; no registrada como realizada. |
+| Documentación y evaluación | Revisar coherencia con pauta. | Revisar evidencia, backlog y diagramas. | Compartido; pendiente de acuerdo. |
+
+## Roles de colaboración sugeridos
+
+- Ambas integrantes revisan el modelo y las decisiones técnicas.
+- Una integrante puede implementar una tarea y la otra revisar sus cambios, alternando el rol.
+- El equipo debe acordar el tablero, responsables y fechas antes de afirmar asignaciones.
+- Reuniones, aprobaciones, acceso al repositorio, tareas de Jira y evidencias: **pendiente de confirmar**.
+
+Esta documentación no atribuye commits, reuniones, revisiones o validaciones a Pamela o Valentina sin evidencia.
